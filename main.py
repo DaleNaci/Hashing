@@ -2,7 +2,11 @@ from file_parser import FileParser
 
 
 def main():
-    pass
+    parser = FileParser(11)
+
+    with open("file.txt", "r") as f:
+        for line in f.readlines():
+            parser.parse_line(line.strip())
 
 
 
