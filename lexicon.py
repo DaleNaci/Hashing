@@ -21,7 +21,16 @@ class Lexicon:
 
 
     def delete(self, word: str) -> None:
-        pass
+        idx = "".join(self.array).index(word)
+        
+        for _ in range(len(word)):
+            self.array[idx] = "*"
+            idx += 1
+        
+        slot = self.__hash(word, 0)
+        self.table[slot] = None
+        
+        print(f"{word}\tdeleted from slot {slot}")
 
 
     def search(self, word: str) -> None:
@@ -35,11 +44,19 @@ class Lexicon:
 
 
     def is_empty(self) -> bool:
-        pass
+        for val in self.table:
+            if val:
+                return False
+        
+        return True
 
 
     def is_full(self) -> bool:
-        pass
+        for val in self.table:
+            if not val:
+                return False
+        
+        return True
 
 
     def print_lex(self) -> None:
