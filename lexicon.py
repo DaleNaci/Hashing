@@ -25,7 +25,13 @@ class Lexicon:
 
 
     def search(self, word: str) -> None:
-        pass
+        word_found = word in "".join(self.array)
+
+        if word_found:
+            slot = "".join(self.array).index(word)
+            print(f"{word}\tfound at slot {slot}")
+        else:
+            print(f"{word}\tnot found")
 
 
     def is_empty(self) -> bool:
