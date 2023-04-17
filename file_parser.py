@@ -24,7 +24,7 @@ class FileParser:
             self.lex.search(info)
 
         elif command == 13:
-            self.lex.print(info)
+            self.lex.print_lex()
 
         elif command == 14:
             self.lex.create(int(info))

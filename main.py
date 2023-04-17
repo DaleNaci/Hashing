@@ -2,7 +2,7 @@ from file_parser import FileParser
 
 
 def main():
-    parser = FileParser(11)
+    parser = FileParser()
 
     with open("file.txt", "r") as f:
         for line in f.readlines():

@@ -1,6 +1,8 @@
 14 11
+13
 10 alex
+13
 10 tom
+13
 10 jerry
-15 ready-to-print
 13

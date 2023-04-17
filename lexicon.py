@@ -37,14 +37,33 @@ class Lexicon:
 
 
     def print_lex(self) -> None:
-        pass
+        print("T:\n")
+        self.__print_table()
+
+        print("\nA: ", end="")
+        self.__print_array()
+
+        print()
+
+
+    def __print_table(self) -> None:
+        for idx, val in enumerate(self.table):
+            if val is None:
+                print(f"{idx}:")
+            else:
+                print(f"{idx}: {val}")
+        
+
+    def __print_array(self) -> None:
+        for val in self.array:
+            print(val, end="")
 
 
     def __get_array_idx(self) -> int:
         idx = 0
 
-        while self.idx != " ":
-            idx += 1    
+        while self.array[idx] != " ":
+            idx += 1   
         
         return idx
 
@@ -62,7 +81,7 @@ class Lexicon:
     def __get_slot(self, start_idx: int) -> int:
         idx = start_idx
 
-        while not self.table[idx]:
+        while self.table[idx] is not None:
             idx += 1
 
             if idx >= len(self.table):
