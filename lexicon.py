@@ -14,8 +14,10 @@ class Lexicon:
     def insert(self, word: str) -> None:
         hash_val = self.__hash(word, 0)
         table_slot = self.__get_slot(hash_val)
+        array_idx = self.__get_array_idx()
 
-        
+        self.table[table_slot] = array_idx
+        self.__add_to_array(word, array_idx)
 
 
     def delete(self, word: str) -> None:
@@ -38,6 +40,25 @@ class Lexicon:
         pass
 
 
+    def __get_array_idx(self) -> int:
+        idx = 0
+
+        while self.idx != " ":
+            idx += 1    
+        
+        return idx
+
+
+    def __add_to_array(self, word, start_idx) -> None:
+        idx = start_idx
+
+        for c in word:
+            self.array[idx] = c
+            idx += 1
+        
+        self.array[idx] = "\\"
+
+
     def __get_slot(self, start_idx: int) -> int:
         idx = start_idx
 
@@ -51,7 +72,9 @@ class Lexicon:
 
 
     def __double_table_size(self) -> None:
+        self.slots *= 2
         self.table += [None] * len(self.table)
+        self.array += [" "] * len(self.table)
 
 
     def __hash(self, word: str, i: int) -> int:
