@@ -1,0 +1,7 @@
+Dale Nacianceno, 6607
+I HAVE READ THE COLLABORATION SECTION OF THE SYLLABUS. DOCUMENT 3 and PRP ADHERED.
+
+Notes:
+- The print statement has a bug where it doesn't print 0 properly.
+  It is there, it just doesn't print properly.
+- You can see that it works because the search still works properly.

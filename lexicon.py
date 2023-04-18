@@ -12,12 +12,12 @@ class Lexicon:
 
 
     def insert(self, word: str) -> None:
-        hash_val = self.__hash(word, 0)
-        table_slot = self.__get_slot(hash_val)
-        array_idx = self.__get_array_idx()
+        hash_val = self.hash(word, 0)
+        table_slot = self.get_slot(hash_val)
+        array_idx = self.get_array_idx()
 
         self.table[table_slot] = array_idx
-        self.__add_to_array(word, array_idx)
+        self.add_to_array(word, array_idx)
 
 
     def delete(self, word: str) -> None:
@@ -27,9 +27,9 @@ class Lexicon:
             self.array[idx] = "*"
             idx += 1
         
-        slot = self.__hash(word, 0)
+        slot = self.hash(word, 0)
         self.table[slot] = None
-        
+
         print(f"{word}\tdeleted from slot {slot}")
 
 
@@ -61,15 +61,15 @@ class Lexicon:
 
     def print_lex(self) -> None:
         print("T:\n")
-        self.__print_table()
+        self.print_table()
 
         print("\nA: ", end="")
-        self.__print_array()
+        self.print_array()
 
         print()
 
 
-    def __print_table(self) -> None:
+    def print_table(self) -> None:
         for idx, val in enumerate(self.table):
             if val is None:
                 print(f"{idx}:")
@@ -77,12 +77,12 @@ class Lexicon:
                 print(f"{idx}: {val}")
         
 
-    def __print_array(self) -> None:
+    def print_array(self) -> None:
         for val in self.array:
             print(val, end="")
 
 
-    def __get_array_idx(self) -> int:
+    def get_array_idx(self) -> int:
         idx = 0
 
         while self.array[idx] != " ":
@@ -91,7 +91,7 @@ class Lexicon:
         return idx
 
 
-    def __add_to_array(self, word, start_idx) -> None:
+    def add_to_array(self, word, start_idx) -> None:
         idx = start_idx
 
         for c in word:
@@ -101,25 +101,25 @@ class Lexicon:
         self.array[idx] = "\\"
 
 
-    def __get_slot(self, start_idx: int) -> int:
+    def get_slot(self, start_idx: int) -> int:
         idx = start_idx
 
         while self.table[idx] is not None:
             idx += 1
 
             if idx >= len(self.table):
-                self.__double_table_size()
+                self.double_table_size()
 
         return idx
 
 
-    def __double_table_size(self) -> None:
+    def double_table_size(self) -> None:
         self.slots *= 2
         self.table += [None] * len(self.table)
         self.array += [" "] * len(self.table)
 
 
-    def __hash(self, word: str, i: int) -> int:
+    def hash(self, word: str, i: int) -> int:
         ascii_total = sum(ord(c) for c in word)
 
         return (((ascii_total - 4) % self.slots) + i ** 2) % self.slots

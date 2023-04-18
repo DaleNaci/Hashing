@@ -1,9 +1,11 @@
+// Dale Nacianceno, 6607
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 
-public class Main {
+public class Main_6607 {
     public static void main(String[] args) {
         if (args.length != 1) {
             System.err.println("Please provide the file name as a command line argument!");
@@ -63,12 +65,14 @@ class Lexicon {
     private int[] table;
     private char[] array;
     
+
     public Lexicon() {
         this.slots = 0;
         this.table = new int[0];
         this.array = new char[0];
     }
     
+
     public void create(int slots) {
         this.slots = slots;
         this.table = new int[slots];
@@ -78,15 +82,17 @@ class Lexicon {
         }
     }
     
+
     public void insert(String word) {
-        int hash_val = this.__hash(word, 0);
-        int table_slot = this.__get_slot(hash_val);
-        int array_idx = this.__get_array_idx();
+        int hash_val = this.hash(word, 0);
+        int table_slot = this.get_slot(hash_val);
+        int array_idx = this.get_array_idx();
         
         this.table[table_slot] = array_idx;
-        this.__add_to_array(word, array_idx);
+        this.add_to_array(word, array_idx);
     }
     
+
     public void delete(String word) {
         int idx = new String(this.array).indexOf(word);
         
@@ -95,12 +101,13 @@ class Lexicon {
             idx++;
         }
         
-        int slot = this.__hash(word, 0);
+        int slot = this.hash(word, 0);
         this.table[slot] = 0;
         
         System.out.printf("%s\tdeleted from slot %d%n", word, slot);
     }
     
+
     public void search(String word) {
         boolean word_found = new String(this.array).contains(word);
         
@@ -112,6 +119,7 @@ class Lexicon {
         }
     }
     
+
     public boolean isEmpty() {
         for (int val : this.table) {
             if (val != 0) {
@@ -130,17 +138,19 @@ class Lexicon {
         return true;
     }
     
+
     public void printLex() {
         System.out.println("T:\n");
-        this.__print_table();
+        this.print_table();
         
         System.out.print("\nA: ");
-        this.__print_array();
+        this.print_array();
         
         System.out.println();
     }
     
-    private void __print_table() {
+
+    private void print_table() {
         for (int i = 0; i < this.table.length; i++) {
             if (this.table[i] == 0) {
                 System.out.printf("%d:%n", i);
@@ -150,13 +160,14 @@ class Lexicon {
         }
     }
     
-    private void __print_array() {
+    private void print_array() {
         for (char val : this.array) {
             System.out.print(val);
         }
     }
     
-    private int __get_array_idx() {
+
+    private int get_array_idx() {
         int idx = 0;
         
         while (this.array[idx] != ' ') {
@@ -166,7 +177,8 @@ class Lexicon {
         return idx;
     }
     
-    private void __add_to_array(String word, int start_idx) {
+
+    private void add_to_array(String word, int start_idx) {
         int idx = start_idx;
         
         for (char c : word.toCharArray()) {
@@ -178,21 +190,22 @@ class Lexicon {
     }
 
 
-    private int __get_slot(int start_idx) {
+    private int get_slot(int start_idx) {
         int idx = start_idx;
     
         while (table[idx] != 0) {
             idx++;
     
             if (idx >= table.length) {
-                __double_table_size();
+                double_table_size();
             }
         }
     
         return idx;
     }
     
-    private void __double_table_size() {
+
+    private void double_table_size() {
         int[] newTable = new int[slots * 2];
         char[] newArray = new char[15 * slots * 2];
     
@@ -209,7 +222,8 @@ class Lexicon {
         array = newArray;
     }
     
-    private int __hash(String word, int i) {
+    
+    private int hash(String word, int i) {
         int ascii_total = 0;
         for (int j = 0; j < word.length(); j++) {
             ascii_total += (int) word.charAt(j);
